@@ -1,6 +1,7 @@
-import pokemonAPI from "./network.js";
+import { pokemonAPI } from "./network.js";
 
 const cards = document.querySelector(".cards");
+const main = document.querySelector("main");
 
 let favorite = JSON.parse(localStorage.getItem("favorite")) || [];
 if (!Array.isArray(favorite)) {
@@ -8,14 +9,25 @@ if (!Array.isArray(favorite)) {
   favorite = [];
 }
 
-const pokemonData = async () => {
-  const data = await pokemonAPI();
-  console.log(data);
-  if (!data || data.length === 0) {
+let data = [];
+let visibleItems = 10;
+
+const fetchPokemonData = async () => {
+  const apiData = await pokemonAPI();
+  if (!apiData || apiData.length === 0) {
     throw new Error("No data found");
   }
+  data = apiData;
+  displayPokemonData();
+  createLoadMoreButton();
+};
 
-  data.forEach(async (element) => {
+const displayPokemonData = async () => {
+  const pokemonToShow = data.slice(0, visibleItems);
+
+  cards.innerHTML = "";
+
+  for (const element of pokemonToShow) {
     const res = await fetch(element.url);
     if (!res.ok) {
       throw new Error("Network response was not ok");
@@ -72,9 +84,38 @@ const pokemonData = async () => {
 
     card.appendChild(favoriteButton);
     cards.appendChild(card);
-  });
+  }
 };
 
-pokemonData();
+const createLoadMoreButton = () => {
+  const container = document.createElement("div");
+  container.className = "flex justify-center";
+  const loadMoreButton = document.createElement("button");
+  loadMoreButton.id = "loadMoreButton";
+  loadMoreButton.className =
+    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4";
+  loadMoreButton.textContent = "Daha Fazla Yükle";
 
-export default pokemonData;
+  loadMoreButton.addEventListener("click", () => {
+    visibleItems += 10; 
+    displayPokemonData();
+    updateLoadMoreButton();
+  });
+
+  container.appendChild(loadMoreButton); 
+  main.appendChild(container); 
+};
+
+const updateLoadMoreButton = () => {
+  const loadMoreButton = document.getElementById("loadMoreButton");
+  if (visibleItems >= data.length) {
+    loadMoreButton.style.display = "none"; 
+  } else {
+    loadMoreButton.style.display = "block";
+  }
+};
+
+
+fetchPokemonData();
+
+export default fetchPokemonData;
