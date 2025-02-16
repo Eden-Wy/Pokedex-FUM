@@ -94,7 +94,7 @@ const createLoadMoreButton = () => {
   loadMoreButton.id = "loadMoreButton";
   loadMoreButton.className =
     "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4";
-  loadMoreButton.textContent = "Daha Fazla Yükle";
+  loadMoreButton.textContent = "Load More";
 
   loadMoreButton.addEventListener("click", () => {
     visibleItems += 10; 
