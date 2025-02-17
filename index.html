@@ -18,34 +18,39 @@
 
   <header>
 
-    <nav class="flex items-center justify-between max-w-[90%] m-auto">
-      <!-- #navbar-->
-      <figure class="logo">
-        <img
-          src="#"
-          alt=""
-          class=""
-        />
-      </figure>
+    <nav class="grid items-center justify-between max-w-[90%] m-auto">
 
-      <ul class="main-nav-ul flex gap-20">
+      <ul class="main-nav-ul flex flex-row gap-25 p-50">
         <li class="main-nav-li">
-          <a href="#" class="main-nav-links font-bold text-red-500">POKEDEX</a>
+          <a href="#" class="main-nav-links font-bold font-serif text-red-500">POKEDEX</a>
         </li>
+        
         <li class="main-nav-li">
-          <a href="#" class="main-nav-links font-bold text-red-500">FAVOURITES</a>
+          <a href="#" class="main-nav-links font-bold font-serif text-red-500">FAVOURITES</a>
+
+          <button id="toFavBtn" type = "button" class = "bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-4 py-2 rounded font-semibold mb-12 cursor-pointer hover:bg-gray hover:text-red-700 hover:border-transparent">
+            To My Favorites
+          </button>
         </li>
       </ul>
-      
+
+    </nav>
 
   </header>
-  <main></main>
+  <main>
+
+
+    <div id="cards">
+
+    </div>
+
+  </main>
   <footer></footer>
 
-  <script src="main.js"></script>
-  <script src="modules/network.js.js"></script>
-  <script src="modules/storage.js"></script>
-  <script src="modules/ui.js"></script>
+  <script type="module" src="main.js"></script>
+  <script type="module" src="./modules/network.js"></script>
+  <script type="module" src="./modules/storage.js"></script>
+  <script type="module" src="./modules/ui.js"></script>
 </body>
 
 </html>
