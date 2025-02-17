@@ -9,32 +9,64 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Qwitcher+Grypen:wght@400;700&display=swap"
     rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss"></style>
   <link rel="stylesheet" href="src/style.css">
   <title>Pokedex</title>
 </head>
-<body class="bg-white">
-  <header>
-    <!-- Search Bar and Favorites button-->
-    <section id ="search-favorites" class="">
-      <div id="search-container" class="">
-        <form action="/action_page.php">
-          <input type="text" placeholder="Search.." name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-      </div>
-    </section>
+<body id ="body" class="">
+  <header id="header" class = "">
     <!-- Navbar -->
-    <nav></nav>
+    <nav id="nav-bar" class ="flex">
+      <div class="container mx-auto px-4 py-3 flex justify-between" id="nav-elements">
+        <a href="#" class="text-xl font-bold text-red-500">Pokedex</a>
+        <div id ="search-favorites" class="flex">
+            <div id="search-container" class="">
+              <form action="/action_page.php">
+                <input type="text" placeholder="Search.." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+              </form>
+            </div>
+            <button id="toFavBtn" type = "button" class = "bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-4 py-2 rounded font-semibold mb-12 cursor-pointer hover:text-red-700 hover:border-transparent">
+              To My Favorites
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
     <!-- Hero Section -->
-    <section id="hero">
-      <section id="pokemon-list" class = ""></section>
+    <section id="hero" class ="flex divide-y divide-red-700">
+      <div id="hero-elements" class ="container mx-auto px-4 py-3 flex justify-between">
+        <div id="left-elements" class ="flex gap-3">
+        <h2 id="hero-title" class="bold text-3xl">Pokedex</h2>
+        <p id="hero-subtitle" class="text-sm">List of Pokemons</p>
+      </div>
+      <div id="right-elements" class="justify-right">
+        <button id="LowestBtn" type = "button" class = "bg-red-700 hover:bg-transparent hover:border-red-700 text-white hover:text-red-700 border border-transparent px-4 py-2 rounded-full font-semibold mb-12 cursor-pointer">
+          Lowest Number
+        </button>
+        <button id="azBtn" type = "button" class = "bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-4 py-2 rounded-full font-semibold mb-12 cursor-pointer hover:text-red-700 hover:border-transparent">
+          A-Z
+        </button>
+        <button id="filtersBtn" type = "button" class = "bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-4 py-2 rounded-full font-semibold mb-12 cursor-pointer hover:text-red-700 hover:border-transparent">
+          More filters
+        </button>
+      </div>
+    </div>
+    </section>
+    <section id="pokemon-list" class = ""></section>
       <p id="info" class="">Click on the Pokeball to catch or release your Pokémon</p>
     </section>
   </header>
   <main>
 <section id="pokemon-list" class = "">
   <ul id="list-container" class = "">
-    <li id="pokemon-card-1" class = ""></li>
+    <li id="pokemon-card-1" class = "" >1</li>
+    <li id="pokemon-card-2" class = "" >2</li>
+    <li id="pokemon-card-3" class = "" >3</li>
+    <li id="pokemon-card-4" class = "" >4</li>
+    <li id="pokemon-card-5" class = "" >5</li>
+    
   </ul>
 </section>
 <section id="pokemon-modal" class = "">
@@ -52,7 +84,34 @@
   </div>
 </section> 
   </main>
-  <footer></footer>
+  <footer>
+    <section class="flex-row gap-20 pt-60 pb-60 pl-5 pr-5">
+      <div class="flex flex-row flex-wrap items-center gap-6 font-[Open_Sans] font-normal text-xl text-left md:text-3x1 mx-auto ml-10 mr-10">
+        <div class="flex flex-col justify-left min-w-2xs" id="left-paragraph">
+          <h3 class="text-left pb-5">The Pokemon Company</h3>
+          <ul class="">
+            <li><a href="#">News</a></li>
+            <li><a href="#">About our company</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+          <div class="flex gap-2 items-left" id="right-paragraph">
+            <div class="flex flex-row gap-10 text-nowrap text-left" id = "sm-container">
+              <img src="src/img/instagram.png" alt="instagram logo" width="35" height="35">
+              <img src="src/img/facebook.png" alt="facebook logo" width="35" height="35">
+              <img src="src/img/twitter.png" alt="twitter logo" width="35" height="35">
+              <img src="src/img/whatsapp.png" alt="whatsapp logo" width="35" height="35">
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-row gap-10 text-nowrap text-left">
+          <div class="" id="col-1">
+            <h3 class="pb-5">The Pokemon Company</h3>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+  </footer>
 
   <script src="main.js"></script>
   <script src="modules/network.js.js"></script>
