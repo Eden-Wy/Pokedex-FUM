@@ -21,23 +21,26 @@
     <nav id="nav-bar" class="flex">
       <div class="container px-4 py-3 flex justify-between" id="nav-elements">
         <a href="#" class="text-xl font-bold text-red-500">Pokedex</a>
-        <div id="search-favorites" class="flex">
+        <div id="search-favorites" class="flex gap-2">
           <!-- Search bar -->
           <div class="search-bar relative">
             <input id="search-input" type="text" placeholder="Search for a Pokemon..." list="search-suggestions"
               class="bg-transparent text-red-700 border border-red-700 px-4 py-2 rounded-full font-semibold mb-12 cursor-text" />
             <button id="search-button" class="absolute top-3 right-4"><img src="src/img/mGlass.png" alt="Search Icon"
-                width="15" height="15" /></button>
-            <datalist id="search-suggestions"> // These will be the values that we call from the API
+                width="15" height="15" />
+            </button>
+            <datalist id="search-suggestions">
               <option value="bulbasaur"></option>
               <option value="charmander"></option>
               <option value="squirtle"></option>
             </datalist>
           </div>
-          <button id="toFavBtn" type="button"
-            class="bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-3 py-2 rounded font-semibold cursor-pointer hover:text-red-700 hover:border-transparent">
-            To My Favorites
-          </button>
+          <div id="button-relative" class="">
+            <button id="toFavBtn" type="button"
+              class="bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-3 py-2 rounded font-semibold cursor-pointer hover:text-red-700 hover:border-transparent">
+              To My Favorites
+            </button>
+          </div>
         </div>
   </header>
   <div id="search-container" class="">
@@ -46,8 +49,6 @@
     <div class="posts-container"></div>
   </div>
   </div>
-  <section id="button-line" class="flex flex-row-reverse pr-5 pb-5">
-  </section>
   </div>
   </div>
   </div>
@@ -76,19 +77,33 @@
       </div>
     </div>
   </section>
-  <section id="pokemon-list" class=""></section>
-  <p id="info" class="">Click on the Pokeball to catch or release your Pokémon</p>
+  <section id="intro" class=""></section>
+  <p id="info" class="pl-10">Click on the Pokeball to catch or release your Pokémon</p>
   </section>
   </header>
   <main>
-    <section id="pokemon-list" class="">
-      <ul id="list-container" class="">
-        <li id="pokemon-card-1" class="">1</li>
-        <li id="pokemon-card-2" class="">2</li>
-        <li id="pokemon-card-3" class="">3</li>
-        <li id="pokemon-card-4" class="">4</li>
-        <li id="pokemon-card-5" class="">5</li>
-
+    <section id="pokemon-list-grid" class="flex">
+      <ul id="pokemon-list" class="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <!-- The following elements are an example of what the grid looks like: -->
+        <li id="pokemon-card-1" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">1</li>
+        <li id="pokemon-card-2" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">2</li>
+        <li id="pokemon-card-3" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">3</li>
+        <li id="pokemon-card-4" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">4</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
       </ul>
     </section>
     <section id="pokemon-modal" class="">
