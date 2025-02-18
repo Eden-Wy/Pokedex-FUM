@@ -93,7 +93,8 @@ export const displayPokemonData = async () => {
 
     updateButtonState();
 
-    favoriteButton.addEventListener("click", () => {
+    favoriteButton.addEventListener("click", (e) => {
+      e.stopPropagation();
       const isFavorite = favorite.some((item) => item.id === pokemon.id);
 
       if (!isFavorite) {
