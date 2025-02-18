@@ -89,13 +89,14 @@ export const displayPokemonData = async () => {
 
 const createLoadMoreButton = () => {
   const container = document.createElement("div");
-  container.className = "flex justify-center";
+  container.className = "flex justify-center items-center flex-col gap-1 mt-4";
   const loadMoreButton = document.createElement("button");
   loadMoreButton.id = "loadMoreButton";
   loadMoreButton.className =
-    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4";
+    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
   loadMoreButton.textContent = "Load More";
   const numberOfItems = document.createElement("p");
+  numberOfItems.className = "text-[.6rem]";
   numberOfItems.textContent = `Showing ${visibleItems} of ${data.length}`;
 
   loadMoreButton.addEventListener("click", () => {
