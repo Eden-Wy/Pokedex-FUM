@@ -12,7 +12,7 @@ if (!Array.isArray(favorite)) {
 let data = [];
 let visibleItems = 10;
 
-const fetchPokemonData = async () => {
+export const fetchPokemonData = async () => {
   const apiData = await pokemonAPI();
   if (!apiData || apiData.length === 0) {
     throw new Error("No data found");
@@ -22,7 +22,7 @@ const fetchPokemonData = async () => {
   createLoadMoreButton();
 };
 
-const displayPokemonData = async () => {
+export const displayPokemonData = async () => {
   const pokemonToShow = data.slice(0, visibleItems);
 
   cards.innerHTML = "";
@@ -95,13 +95,17 @@ const createLoadMoreButton = () => {
   loadMoreButton.className =
     "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4";
   loadMoreButton.textContent = "Load More";
+  const numberOfItems = document.createElement("p");
+  numberOfItems.textContent = `Showing ${visibleItems} of ${data.length}`;
 
   loadMoreButton.addEventListener("click", () => {
-    visibleItems += 10; 
+    visibleItems += 5; 
+    numberOfItems.textContent = `Showing ${visibleItems} of ${data.length}`;
     displayPokemonData();
     updateLoadMoreButton();
   });
 
+  container.appendChild(numberOfItems);
   container.appendChild(loadMoreButton); 
   main.appendChild(container); 
 };
@@ -118,4 +122,3 @@ const updateLoadMoreButton = () => {
 
 fetchPokemonData();
 
-export default fetchPokemonData;
