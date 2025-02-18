@@ -10,7 +10,7 @@ if (!Array.isArray(favorite)) {
 }
 
 let data = [];
-let visibleItems = 10;
+let visibleItems = 12;
 
 export const fetchPokemonData = async () => {
   const apiData = await pokemonAPI();
@@ -128,7 +128,7 @@ const createLoadMoreButton = () => {
   numberOfItems.textContent = `Showing ${visibleItems} of ${data.length}`;
 
   loadMoreButton.addEventListener("click", () => {
-    visibleItems += 5;
+    visibleItems += 12;
     numberOfItems.textContent = `Showing ${visibleItems} of ${data.length}`;
     displayPokemonData();
     updateLoadMoreButton();
