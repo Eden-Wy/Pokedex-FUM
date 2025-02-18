@@ -36,7 +36,7 @@ export const displayPokemonData = async () => {
 
     const card = document.createElement("div");
     card.className =
-      "w-[200px] min-h-[200px] bg-gray-200 rounded-lg shadow-md flex flex-col items-center justify-center py-4";
+      "w-[200px] min-h-[200px] bg-gray-200 rounded-lg shadow-md flex flex-col items-center justify-center py-4 cursor-pointer";
 
     card.innerHTML = `
       <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
@@ -45,6 +45,33 @@ export const displayPokemonData = async () => {
       <p>Weight: ${pokemon.weight}</p>
       <p>Experience: ${pokemon.base_experience}</p>
     `;
+
+    card.addEventListener("click", () => {
+      const pokemonModal = document.createElement("div");
+      pokemonModal.className =
+        "modal fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-10";
+      pokemonModal.innerHTML = `
+        <div class="modal-content w-[60%] h-[60%] bg-white p-4 rounded-lg shadow-lg relative flex items-center">   
+          <img class="flex-1" src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
+          <div class="flex-1 p-4">
+            <h2>${pokemon.name}</h2>
+            <p>Height: ${pokemon.height}</p>
+            <p>Weight: ${pokemon.weight}</p>
+            <p>Experience: ${pokemon.base_experience}</p>
+          </div>
+        </div>
+      `;
+      const modalContent = pokemonModal.querySelector(".modal-content");
+      const closeBtn = document.createElement("span");
+      closeBtn.className =
+        "close-button text-2xl text-right cursor-pointer absolute top-2 right-2";
+      closeBtn.textContent = "×";
+      closeBtn.addEventListener("click", () => {
+        main.removeChild(pokemonModal);
+      });
+      modalContent.appendChild(closeBtn);
+      main.appendChild(pokemonModal);
+    });
 
     const favoriteButton = document.createElement("button");
     favoriteButton.className =
@@ -100,26 +127,24 @@ const createLoadMoreButton = () => {
   numberOfItems.textContent = `Showing ${visibleItems} of ${data.length}`;
 
   loadMoreButton.addEventListener("click", () => {
-    visibleItems += 5; 
+    visibleItems += 5;
     numberOfItems.textContent = `Showing ${visibleItems} of ${data.length}`;
     displayPokemonData();
     updateLoadMoreButton();
   });
 
   container.appendChild(numberOfItems);
-  container.appendChild(loadMoreButton); 
-  main.appendChild(container); 
+  container.appendChild(loadMoreButton);
+  main.appendChild(container);
 };
 
 const updateLoadMoreButton = () => {
   const loadMoreButton = document.getElementById("loadMoreButton");
   if (visibleItems >= data.length) {
-    loadMoreButton.style.display = "none"; 
+    loadMoreButton.style.display = "none";
   } else {
     loadMoreButton.style.display = "block";
   }
 };
 
-
 fetchPokemonData();
-
