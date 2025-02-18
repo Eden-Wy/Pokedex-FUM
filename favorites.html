@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Qwitcher+Grypen:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="src/style.css">
+  <title>Pokedex</title>
+</head>
+<body class="bg-white">
+  <header>
+    <!-- Search Bar and Favorites button-->
+    <section id ="search-favorites" class="">
+      <div id="search-container" class="">
+        <form action="/action_page.php">
+          <input type="text" placeholder="Search.." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+    </section>
+    <!-- Navbar -->
+    <nav></nav>
+    <!-- Hero Section -->
+    <section id="hero">
+      <section id="pokemon-list" class = ""></section>
+      <p id="info" class="">Click on the Pokeball to catch or release your Pokémon</p>
+    </section>
+  </header>
+  <main>
+<section id="pokemon-list" class = "">
+  <ul id="list-container" class = "">
+    <li id="pokemon-card-1" class = ""></li>
+  </ul>
+
+</section> 
+  </main>
+  <footer></footer>
+
+  <script src="main.js"></script>
+  <script src="modules/network.js.js"></script>
+  <script src="modules/storage.js"></script>
+  <script src="modules/ui.js"></script>
+</body>
+
+</html>
