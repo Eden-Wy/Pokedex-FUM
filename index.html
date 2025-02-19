@@ -9,7 +9,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Qwitcher+Grypen:wght@400;700&display=swap"
     rel="stylesheet">
-  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style type="text/tailwindcss"></style>
   <link rel="stylesheet" href="src/style.css">
   <title>Pokedex</title>
@@ -35,19 +35,22 @@
               <option value="squirtle"></option>
             </datalist>
           </div>
-          <div id="button-relative" class="">
-            <button id="toFavBtn" type="button"
-              class="bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-3 py-2 rounded font-semibold cursor-pointer hover:text-red-700 hover:border-transparent">
-              To My Favorites
-            </button>
-          </div>
+          <button id="toFavBtn" type="button"
+            class="bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-3 py-2 rounded font-semibold cursor-pointer hover:text-red-700 hover:border-transparent">
+            To My Favorites
+          </button>
         </div>
+    </nav>
   </header>
   <div id="search-container" class="">
     <div class="search-display"></div>
 
     <div class="posts-container"></div>
 
+  </div>
+
+  <section id="button-line" class="flex flex-row-reverse pr-5 pb-5">
+  </section>
   <!-- Hero Section -->
   <section id="hero" class="flex divide-y divide-red-700">
     <div id="hero-elements" class="container px-4 py-3 flex justify-between">
@@ -72,49 +75,19 @@
       </div>
     </div>
   </section>
-  <section id="intro" class=""></section>
-  <p id="info" class="pl-10">Click on the Pokeball to catch or release your Pokémon</p>
+  <p id="info" class="">Click on the Pokeball to catch or release your Pokémon</p>
   </section>
   </header>
   <main>
-    <section id="pokemon-list-grid" class="flex">
-      <ul id="pokemon-list" class="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        <!-- The following elements are an example of what the grid looks like: -->
-        <li id="pokemon-card-1" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">1</li>
-        <li id="pokemon-card-2" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">2</li>
-        <li id="pokemon-card-3" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">3</li>
-        <li id="pokemon-card-4" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">4</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
-        <li id="pokemon-card-5" class="border size-30 rounded-lg shadow-md p-4 flex flex-col items-center">5</li>
+    <section id="pokemon-list" class="">
+      <ul id="list-container" class="w-full flex flex-wrap justify-center gap-4 mt-7">
       </ul>
     </section>
-    <section id="pokemon-modal" class="">
+    <!-- <section id="pokemon-modal" class="">
       <div id="modal-container" class="">
-        <div id="modal-fav-icon" class=""></div>
-        <div id="modal-picture" class=""></div>
-        <div id="modal-number" class=""></div>
-        <div id="modal-name" class=""></div>
-        <div id="modal-details" class=""></div>
-        <div id="modal-species" class=""></div>
-        <div id="modal-types" class=""></div>
-        <div id="modal-height" class=""></div>
-        <div id="modal-abilities" class=""></div>
       </div>
       </div>
-    </section>
+    </section> -->
   </main>
   <footer>
     <section class="flex-row gap-20 pt-60 pb-60 pl-5 pr-5">
@@ -146,10 +119,10 @@
     </section>
   </footer>
 
-  <script src="main.js"></script>
-  <script src="modules/network.js.js"></script>
-  <script src="modules/storage.js"></script>
-  <script src="modules/ui.js"></script>
+  <script type="module" src="main.js"></script>
+  <script type="module" src="modules/network.js"></script>
+  <script type="module" src="modules/storage.js"></script>
+  <script type="module" src="modules/ui.js"></script>
 </body>
 
 </html>
