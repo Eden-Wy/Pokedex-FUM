@@ -1,5 +1,5 @@
 import { pokeAPI } from "../modules/network.js";
-import { addFavorite, removeFavorite } from "./storage.js";
+import { addFavorite, removeFavorite, getFavorites } from "./storage.js";
 
 const listContainer = document.querySelector("#list-container");
 const body = document.querySelector("body");
@@ -12,6 +12,13 @@ export const pokeData = async () => {
     if (!data || !data.results || data.results.length === 0) {
       throw new Error("Data not found");
     }
+
+    const favorites = getFavorites();
+
+    const checkFavorite = (pokemonId) => {
+      return favorites.some((fav) => fav.id === pokemonId);
+    };
+
     data.results.forEach(async (element) => {
       try {
         const result = await fetch(element.url);
@@ -20,14 +27,16 @@ export const pokeData = async () => {
         }
         const pokemon = await result.json();
         console.log(pokemon);
+
+        const pokemonId = element.url.split("/").filter(Boolean).pop();
+        const isFavorite = checkFavorite(pokemonId);
+
         const cardigan = document.createElement("div");
         cardigan.className =
           "w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer";
         cardigan.innerHTML = `
         <div class="w-full h-[8rem] flex justify-center items-center">
-          <img src="${pokemon.sprites.front_default}" alt="${
-          pokemon.name
-        }" class="w-full h-[100%] bg-gray-200">
+          <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" class="w-full h-[100%] bg-gray-200">
         </div>
           <p class="text-[1rem] font-medium">${pokemon.name.toUpperCase()}</p>
           <p class="text-[.7rem]">Height: ${pokemon.height}</p>
@@ -37,6 +46,34 @@ export const pokeData = async () => {
             .join(", ")}</p>
         `;
         listContainer.appendChild(cardigan);
+
+        const favoriteBtn = document.createElement("img");
+        favoriteBtn.src = isFavorite
+          ? "../src/assets/images/pokeballs/pokeball-full.png"
+          : "../src/assets/images/pokeballs/pokeball-empty.png";
+        favoriteBtn.alt = "Favorite";
+        favoriteBtn.className =
+          "w-[1.2rem] h-[1.2rem] absolute top-2 right-2 cursor-pointer";
+        cardigan.appendChild(favoriteBtn);
+
+        favoriteBtn.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const id = pokemonId;
+          const name = pokemon.name;
+          const type = pokemon.types.map((t) => t.type.name).join(", ");
+          const height = pokemon.height;
+          const weight = pokemon.weight;
+
+          if (favoriteBtn.src.includes("pokeball-empty.png")) {
+            favoriteBtn.src =
+              "../src/assets/images/pokeballs/pokeball-full.png";
+            addFavorite(id, name, type, height, weight); 
+          } else {
+            favoriteBtn.src =
+              "../src/assets/images/pokeballs/pokeball-empty.png";
+            removeFavorite(id); 
+          }
+        });
 
         cardigan.addEventListener("click", () => {
           const modal = document.createElement("div");
@@ -105,32 +142,6 @@ export const pokeData = async () => {
             .join(", ")}`;
           modalContentRightBottom.appendChild(modalGender);
 
-          const favoriteBtn = document.createElement("img");
-          favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-empty.png";
-          favoriteBtn.alt = "Favorite";
-          favoriteBtn.className =
-            "w-[1.2rem] h-[1.2rem] absolute top-4 left-4 cursor-pointer";
-          modalContent.appendChild(favoriteBtn);
-
-          favoriteBtn.addEventListener("click", (event) => {
-            event.stopPropagation();
-            const id = element.url.split("/").filter(Boolean).pop();
-            const name = pokemon.name;
-            const type = pokemon.types.map((t) => t.type.name).join(", ");
-            const height = pokemon.height;
-            const weight = pokemon.weight;
-
-            if (favoriteBtn.src.includes("pokeball-empty.png")) {
-              favoriteBtn.src =
-                "../src/assets/images/pokeballs/pokeball-full.png";
-              addFavorite(id, name, type, height, weight);
-            } else {
-              favoriteBtn.src =
-                "../src/assets/images/pokeballs/pokeball-empty.png";
-              removeFavorite(id);
-            }
-          });
-
           const modalClose = document.createElement("button");
           modalClose.className =
             "w-[1.5rem] h-[1.5rem] text-[.8rem] absolute top-3 right-6 cursor-pointer";
@@ -148,15 +159,15 @@ export const pokeData = async () => {
           searchInput.addEventListener("input", () => {
             const searchValue = searchInput.value.toLowerCase();
             const allPokemon = listContainer.querySelectorAll("div");
-        
+
             allPokemon.forEach((pokemon) => {
-              const nameElement = pokemon.querySelector("p"); 
-              if (!nameElement) return; 
-        
-              const name = nameElement.textContent.toLowerCase(); 
-              
+              const nameElement = pokemon.querySelector("p");
+              if (!nameElement) return;
+
+              const name = nameElement.textContent.toLowerCase();
+
               if (name.includes(searchValue)) {
-                pokemon.style.display = "flex"; 
+                pokemon.style.display = "flex";
               } else {
                 pokemon.style.display = "none";
               }
@@ -164,36 +175,23 @@ export const pokeData = async () => {
           });
         };
 
-        const lowestNumber =  () => {
-          
-        }
-        
         searchPokemon();
 
-        const favoriteBtn = document.createElement("img");
-        favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-empty.png";
-        favoriteBtn.alt = "Favorite";
-        favoriteBtn.className =
-          "w-[1.2rem] h-[1.2rem] absolute top-2 right-2 cursor-pointer";
-        cardigan.appendChild(favoriteBtn);
+        const sortBtn = document.querySelector("#azBtn");
 
-        favoriteBtn.addEventListener("click", (event) => {
-          event.stopPropagation();
-          const id = element.url.split("/").filter(Boolean).pop();
-          const name = pokemon.name;
-          const type = pokemon.types.map((t) => t.type.name).join(", ");
-          const height = pokemon.height;
-          const weight = pokemon.weight;
+        sortBtn.addEventListener("click", () => {
+          const allPokemon = Array.from(listContainer.children);
 
-          if (favoriteBtn.src.includes("pokeball-empty.png")) {
-            favoriteBtn.src =
-              "../src/assets/images/pokeballs/pokeball-full.png";
-            addFavorite(id, name, type, height, weight);
-          } else {
-            favoriteBtn.src =
-              "../src/assets/images/pokeballs/pokeball-empty.png";
-            removeFavorite(id);
-          }
+          allPokemon.sort((a, b) => {
+            const nameA = a.querySelector("p").textContent.toLowerCase();
+            const nameB = b.querySelector("p").textContent.toLowerCase();
+            return nameA.localeCompare(nameB);
+          });
+
+          listContainer.innerHTML = "";
+          allPokemon.forEach((pokemon) => {
+            listContainer.appendChild(pokemon);
+          });
         });
       } catch (error) {
         console.error("Error fetching Pokémon data:", error);
