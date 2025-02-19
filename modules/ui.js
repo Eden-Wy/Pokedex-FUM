@@ -18,6 +18,7 @@ export const pokeData = async () => {
           throw new Error("No Network Response");
         }
         const pokemon = await result.json();
+        console.log(pokemon);
         const cardigan = document.createElement("div");
         cardigan.className =
           "w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer";
@@ -35,31 +36,135 @@ export const pokeData = async () => {
             .join(", ")}</p>
         `;
         listContainer.appendChild(cardigan);
+        
         cardigan.addEventListener("click", () => {
           const modal = document.createElement("div");
           modal.className =
             "fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center";
           const modalContent = document.createElement("div");
           modalContent.className =
-            "w-[30rem] h-[40rem] bg-white border-[1px] border-slate-300 rounded-md shadow-md flex flex-col justify-between items-center p-4";
+            "w-[35rem] h-[20rem] bg-white border-[1px] border-red-600 rounded-md shadow-md flex justify-center items-center p-2 relative";
+
+          const modalContentLeft = document.createElement("div");
+          modalContentLeft.className = "w-[40%] h-full flex items-center";
+          modalContent.appendChild(modalContentLeft);
+
+          const modalContentRight = document.createElement("div");
+          modalContentRight.className =
+            "w-[60%] h-full flex flex-col justify-center items-center gap-[2rem]";
+          modalContent.appendChild(modalContentRight);
+
+          const modalContentRightTop = document.createElement("div");
+          modalContentRightTop.className =
+            "w-full flex justify-start items-center pl-7";
+          modalContentRight.appendChild(modalContentRightTop);
+
+          const modalContentRightBottom = document.createElement("div");
+          modalContentRightBottom.className =
+            "w-full flex flex-col justify-center items-start gap-1 pl-7";
+          modalContentRight.appendChild(modalContentRightBottom);
+
+          const modalImage = document.createElement("img");
+          modalImage.src = pokemon.sprites.front_default;
+          modalImage.alt = pokemon.name;
+          modalImage.className = "w-[100%] h-[100%]  bg-gray-200";
+          modalContentLeft.appendChild(modalImage);
+
+          const modalName = document.createElement("p");
+          modalName.className = "text-[2rem] font-medium text-red-600";
+          modalName.textContent = pokemon.name.toUpperCase();
+          modalContentRightTop.appendChild(modalName);
+
+          const modalBaseExperience = document.createElement("p");
+          modalBaseExperience.className = "text-[.7rem] capitalize";
+          modalBaseExperience.innerHTML = `<span class="text-red-500 mr-1">Base Experience</span>: ${pokemon.base_experience}`;
+          modalContentRightBottom.appendChild(modalBaseExperience);
+
+          const modalHeight = document.createElement("p");
+          modalHeight.className = "text-[.7rem] capitalize";
+          modalHeight.innerHTML = `<span class="text-red-500 mr-1">Height</span>: ${pokemon.height}`;
+          modalContentRightBottom.appendChild(modalHeight);
+
+          const modalWeight = document.createElement("p");
+          modalWeight.className = "text-[.7rem] capitalize";
+          modalWeight.innerHTML = `<span class="text-red-500 mr-1">Weight</span>: ${pokemon.weight}`;
+          modalContentRightBottom.appendChild(modalWeight);
+
+          const modalType = document.createElement("p");
+          modalType.className = "text-[.7rem] capitalize";
+          modalType.innerHTML = `<span class="text-red-500 mr-1">Type</span>: ${pokemon.types
+            .map((type) => type.type.name)
+            .join(", ")}`;
+          modalContentRightBottom.appendChild(modalType);
+
+          const modalGender = document.createElement("p");
+          modalGender.className = "text-[.7rem] capitalize";
+          modalGender.innerHTML = `<span class="text-red-500 mr-1">Gender</span>: ${pokemon.forms
+            .map((form) => form.name)
+            .join(", ")}`;
+          modalContentRightBottom.appendChild(modalGender);
+
+          const favoriteBtn = document.createElement("img");
+          favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-empty.png";
+          favoriteBtn.alt = "Favorite";
+          favoriteBtn.className =
+            "w-[1.2rem] h-[1.2rem] absolute top-4 left-4 cursor-pointer";
+          modalContent.appendChild(favoriteBtn);
+
+          favoriteBtn.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const id = element.url.split("/").filter(Boolean).pop();
+            const name = pokemon.name;
+            const type = pokemon.types.map((t) => t.type.name).join(", ");
+            const height = pokemon.height;
+            const weight = pokemon.weight;
+
+            if (favoriteBtn.src.includes("pokeball-empty.png")) {
+              favoriteBtn.src =
+                "../src/assets/images/pokeballs/pokeball-full.png";
+              addFavorite(id, name, type, height, weight);
+            } else {
+              favoriteBtn.src =
+                "../src/assets/images/pokeballs/pokeball-empty.png";
+              removeFavorite(id);
+            }
+          });
+
+          const modalClose = document.createElement("button");
+          modalClose.className =
+            "w-[1.5rem] h-[1.5rem] text-[.8rem] absolute top-3 right-6 cursor-pointer";
+          modalClose.textContent = "Close";
+          modalClose.addEventListener("click", () => {
+            modal.remove();
+          });
+          modalContent.appendChild(modalClose);
+
           modal.appendChild(modalContent);
           body.appendChild(modal);
         });
 
         const favoriteBtn = document.createElement("img");
-        favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-1.png";
+        favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-empty.png";
         favoriteBtn.alt = "Favorite";
         favoriteBtn.className =
-          "w-[1.5rem] h-[1.5rem] absolute top-2 right-2 cursor-pointer";
+          "w-[1.2rem] h-[1.2rem] absolute top-2 right-2 cursor-pointer";
         cardigan.appendChild(favoriteBtn);
+
         favoriteBtn.addEventListener("click", (event) => {
           event.stopPropagation();
-          
-          if (favoriteBtn.src.includes("pokeball-1.png")) {
-            favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-2.png";
-            addFavorite(id,name,type,height,weight);
+          const id = element.url.split("/").filter(Boolean).pop();
+          const name = pokemon.name;
+          const type = pokemon.types.map((t) => t.type.name).join(", ");
+          const height = pokemon.height;
+          const weight = pokemon.weight;
+
+          if (favoriteBtn.src.includes("pokeball-empty.png")) {
+            favoriteBtn.src =
+              "../src/assets/images/pokeballs/pokeball-full.png";
+            addFavorite(id, name, type, height, weight);
           } else {
-            favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-1.png";
+            favoriteBtn.src =
+              "../src/assets/images/pokeballs/pokeball-empty.png";
             removeFavorite(id);
           }
         });

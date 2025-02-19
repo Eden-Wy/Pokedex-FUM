@@ -1,5 +1,5 @@
 export const pokeAPI = async () => {
-    const url = "https://pokeapi.co/api/v2/pokemon?limit=4";
+    const url = "https://pokeapi.co/api/v2/pokemon?limit=40";
     try {
       const response = await fetch(url);
       if (!response.ok) {

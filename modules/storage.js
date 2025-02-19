@@ -7,6 +7,7 @@ export const addFavorite = (id, name, type, height, weight) => {
   }
 };
 
+
 export const removeFavorite = (id) => {
   let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
