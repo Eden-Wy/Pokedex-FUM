@@ -21,23 +21,24 @@
     <nav id="nav-bar" class="flex">
       <div class="container px-4 py-3 flex justify-between" id="nav-elements">
         <a href="#" class="text-xl font-bold text-red-500">Pokedex</a>
-        <div id="search-favorites" class="flex">
+        <div id="search-favorites" class="flex gap-2">
           <!-- Search bar -->
           <div class="search-bar relative">
             <input id="search-input" type="text" placeholder="Search for a Pokemon..." list="search-suggestions"
               class="bg-transparent text-red-700 border border-red-700 px-4 py-2 rounded-full font-semibold mb-12 cursor-text" />
             <button id="search-button" class="absolute top-3 right-4"><img src="src/img/mGlass.png" alt="Search Icon"
-                width="15" height="15" /></button>
-            <datalist id="search-suggestions"> // These will be the values that we call from the API
+                width="15" height="15" />
+            </button>
+            <datalist id="search-suggestions">
               <option value="bulbasaur"></option>
               <option value="charmander"></option>
               <option value="squirtle"></option>
             </datalist>
           </div>
-          <button id="toFavBtn" type="button"
-            class="bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-3 py-2 rounded font-semibold cursor-pointer hover:text-red-700 hover:border-transparent">
-            To My Favorites
-          </button>
+          <a href="favorites.html" id=" toFavBtn" type="button"
+            class="bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-4 py-2 rounded font-semibold mb-12 cursor-pointer hover:text-red-700 hover:border-transparent">
+            Favorites
+          </button></a>
         </div>
     </nav>
   </header>
@@ -45,6 +46,7 @@
     <div class="search-display"></div>
 
     <div class="posts-container"></div>
+
   </div>
 
   <section id="button-line" class="flex flex-row-reverse pr-5 pb-5">
