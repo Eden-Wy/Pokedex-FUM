@@ -3,6 +3,7 @@ import { addFavorite, removeFavorite } from "./storage.js";
 
 const listContainer = document.querySelector("#list-container");
 const body = document.querySelector("body");
+const searchInput = document.querySelector("#search-input");
 
 export const pokeData = async () => {
   try {
@@ -36,7 +37,7 @@ export const pokeData = async () => {
             .join(", ")}</p>
         `;
         listContainer.appendChild(cardigan);
-        
+
         cardigan.addEventListener("click", () => {
           const modal = document.createElement("div");
           modal.className =
@@ -143,6 +144,28 @@ export const pokeData = async () => {
           body.appendChild(modal);
         });
 
+        const searchPokemon = () => {
+          searchInput.addEventListener("input", () => {
+            const searchValue = searchInput.value.toLowerCase();
+            const allPokemon = listContainer.querySelectorAll("div");
+        
+            allPokemon.forEach((pokemon) => {
+              const nameElement = pokemon.querySelector("p"); 
+              if (!nameElement) return; 
+        
+              const name = nameElement.textContent.toLowerCase(); 
+              
+              if (name.includes(searchValue)) {
+                pokemon.style.display = "flex"; 
+              } else {
+                pokemon.style.display = "none";
+              }
+            });
+          });
+        };
+        
+        searchPokemon();
+
         const favoriteBtn = document.createElement("img");
         favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-empty.png";
         favoriteBtn.alt = "Favorite";
@@ -176,4 +199,5 @@ export const pokeData = async () => {
     console.error("Error in pokeData:", error);
   }
 };
+
 pokeData();
