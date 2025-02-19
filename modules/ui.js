@@ -163,6 +163,10 @@ export const pokeData = async () => {
             });
           });
         };
+
+        const lowestNumber =  () => {
+          
+        }
         
         searchPokemon();
 
