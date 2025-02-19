@@ -1,9 +1,12 @@
 import { pokeAPI } from "../modules/network.js";
 import { addFavorite, removeFavorite, getFavorites } from "./storage.js";
 
+const pokemonList = document.querySelector("#pokemon-list");
 const listContainer = document.querySelector("#list-container");
 const body = document.querySelector("body");
 const searchInput = document.querySelector("#search-input");
+
+let visible = 12;
 
 export const pokeData = async () => {
   try {
@@ -19,7 +22,7 @@ export const pokeData = async () => {
       return favorites.some((fav) => fav.id === pokemonId);
     };
 
-    data.results.forEach(async (element) => {
+    data.results.slice(0, visible).forEach(async (element) => {
       try {
         const result = await fetch(element.url);
         if (!result.ok) {
@@ -36,7 +39,9 @@ export const pokeData = async () => {
           "w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer";
         cardigan.innerHTML = `
         <div class="w-full h-[8rem] flex justify-center items-center">
-          <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" class="w-full h-[100%] bg-gray-200">
+          <img src="${pokemon.sprites.front_default}" alt="${
+          pokemon.name
+        }" class="w-full h-[100%] bg-gray-200">
         </div>
           <p class="text-[1rem] font-medium">${pokemon.name.toUpperCase()}</p>
           <p class="text-[.7rem]">Height: ${pokemon.height}</p>
@@ -67,11 +72,11 @@ export const pokeData = async () => {
           if (favoriteBtn.src.includes("pokeball-empty.png")) {
             favoriteBtn.src =
               "../src/assets/images/pokeballs/pokeball-full.png";
-            addFavorite(id, name, type, height, weight); 
+            addFavorite(id, name, type, height, weight);
           } else {
             favoriteBtn.src =
               "../src/assets/images/pokeballs/pokeball-empty.png";
-            removeFavorite(id); 
+            removeFavorite(id);
           }
         });
 
@@ -193,6 +198,31 @@ export const pokeData = async () => {
             listContainer.appendChild(pokemon);
           });
         });
+        const loadMoreBtn = document.getElementById("loadMoreButton");
+          if (loadMoreBtn) loadMoreBtn.remove();
+
+          const newLoadMoreBtn = document.createElement("button");
+          newLoadMoreBtn.id = "loadMoreButton";
+          newLoadMoreBtn.className =
+            "w-[5rem] h-[1.5rem] bg-red-600 text-white text-[.6rem] font-medium rounded-md mt-4";
+          newLoadMoreBtn.textContent = "Load More";
+          pokemonList.appendChild(newLoadMoreBtn);
+
+          newLoadMoreBtn.addEventListener("click", () => {
+            visible += 12;
+            pokeData();
+            updateLoadMoreButton();
+          });
+
+          const updateLoadMoreButton = () => {
+            const loadMore = document.getElementById("loadMoreButton");
+            if (visibleItems >= data.length) {
+              loadMore.style.display = "none";
+            } else {
+              loadMore.style.display = "block";
+            }
+          };
+          updateLoadMoreButton();
       } catch (error) {
         console.error("Error fetching Pokémon data:", error);
       }
