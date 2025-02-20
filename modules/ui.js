@@ -5,24 +5,23 @@ const pokemonList = document.querySelector("#pokemon-list");
 const listContainer = document.querySelector("#list-container");
 const body = document.querySelector("body");
 const searchInput = document.querySelector("#search-input");
+const loadMoreBtn = document.createElement("button");
 
-let visible = 12;
+let offset = 0;
+const limit = 12;
 
 export const pokeData = async () => {
   try {
-    const data = await pokeAPI();
-    console.log(data);
-    if (!data || !data.results || data.results.length === 0) {
+    const data = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
+    const jsonData = await data.json();
+    if (!jsonData || !jsonData.results || jsonData.results.length === 0) {
       throw new Error("Data not found");
     }
 
     const favorites = getFavorites();
+    const checkFavorite = (pokemonId) => favorites.some((fav) => fav.id === pokemonId);
 
-    const checkFavorite = (pokemonId) => {
-      return favorites.some((fav) => fav.id === pokemonId);
-    };
-
-    data.results.slice(0, visible).forEach(async (element) => {
+    jsonData.results.forEach(async (element) => {
       try {
         const result = await fetch(element.url);
         if (!result.ok) {
@@ -36,19 +35,15 @@ export const pokeData = async () => {
 
         const cardigan = document.createElement("div");
         cardigan.className =
-          "w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer grayscale hover:grayscale-0 transition ease-in-out duration-300";
+          "w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer grayscale hover:grayscale-0 transition ease-in-out duration-300 hover:scale-105";
         cardigan.innerHTML = `
-        <div class="w-full h-[8rem] flex justify-center items-center">
-          <img src="${pokemon.sprites.front_default}" alt="${
-          pokemon.name
-        }" class="w-full h-[100%] bg-gray-200">
-        </div>
+          <div class="w-full h-[8rem] flex justify-center items-center">
+            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" class="w-full h-[100%] bg-gray-200">
+          </div>
           <p class="text-[1rem] font-medium">${pokemon.name.toUpperCase()}</p>
           <p class="text-[.7rem]">Height: ${pokemon.height}</p>
           <p class="text-[.7rem]">Weight: ${pokemon.weight}</p>
-          <p class="text-[.7rem]">Type: ${pokemon.types
-            .map((typeInfo) => typeInfo.type.name)
-            .join(", ")}</p>
+          <p class="text-[.7rem]">Type: ${pokemon.types.map((typeInfo) => typeInfo.type.name).join(", ")}</p>
         `;
         listContainer.appendChild(cardigan);
 
@@ -70,13 +65,13 @@ export const pokeData = async () => {
           const weight = pokemon.weight;
 
           if (favoriteBtn.src.includes("pokeball-empty.png")) {
-            favoriteBtn.src =
-              "../src/assets/images/pokeballs/pokeball-full.png";
+            favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-full.png";
             addFavorite(id, name, type, height, weight);
+            cardigan.classList.remove("grayscale");
           } else {
-            favoriteBtn.src =
-              "../src/assets/images/pokeballs/pokeball-empty.png";
+            favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-empty.png";
             removeFavorite(id);
+            cardigan.classList.add("grayscale");
           }
         });
 
@@ -163,7 +158,7 @@ export const pokeData = async () => {
         const searchPokemon = () => {
           searchInput.addEventListener("input", () => {
             const searchValue = searchInput.value.toLowerCase();
-            const allPokemon = listContainer.querySelectorAll("div");
+            const allPokemon = document.querySelectorAll("div");
 
             allPokemon.forEach((pokemon) => {
               const nameElement = pokemon.querySelector("p");
@@ -198,31 +193,6 @@ export const pokeData = async () => {
             listContainer.appendChild(pokemon);
           });
         });
-        const loadMoreBtn = document.getElementById("loadMoreButton");
-          if (loadMoreBtn) loadMoreBtn.remove();
-
-          const newLoadMoreBtn = document.createElement("button");
-          newLoadMoreBtn.id = "loadMoreButton";
-          newLoadMoreBtn.className =
-            "w-[5rem] h-[1.5rem] bg-red-600 text-white text-[.6rem] font-medium rounded-md mt-4";
-          newLoadMoreBtn.textContent = "Load More";
-          pokemonList.appendChild(newLoadMoreBtn);
-
-          newLoadMoreBtn.addEventListener("click", () => {
-            visible += 12;
-            pokeData();
-            updateLoadMoreButton();
-          });
-
-          const updateLoadMoreButton = () => {
-            const loadMore = document.getElementById("loadMoreButton");
-            if (visibleItems >= data.length) {
-              loadMore.style.display = "none";
-            } else {
-              loadMore.style.display = "block";
-            }
-          };
-          updateLoadMoreButton();
       } catch (error) {
         console.error("Error fetching Pokémon data:", error);
       }
@@ -231,5 +201,13 @@ export const pokeData = async () => {
     console.error("Error in pokeData:", error);
   }
 };
+
+loadMoreBtn.textContent = "Load More";
+loadMoreBtn.className = "mt-4 px-3 py-1 bg-red-500 text-white text-[.7rem] rounded-md cursor-pointer";
+loadMoreBtn.addEventListener("click", () => {
+  offset += limit;
+  pokeData();
+});
+pokemonList.appendChild(loadMoreBtn);
 
 pokeData();
