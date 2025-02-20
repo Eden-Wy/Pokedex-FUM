@@ -18,16 +18,16 @@
 <body id="body" class="">
   <header id="header" class="">
     <!-- Navbar -->
-    <nav id="nav-bar" class="flex">
-      <div class="container px-4 py-3 flex justify-between" id="nav-elements">
-        <a href="#" class="text-xl font-bold text-red-500">Pokedex</a>
+    <nav id="nav-bar" class="w-full flex justify-center px-6">
+      <div class="container w-full py-6 flex justify-between" id="nav-elements">
+        <a href="index.html" class="text-xl font-bold text-red-500">Pokedex</a>
         <div id="search-favorites" class="flex gap-2">
           <!-- Search bar -->
           <div class="search-bar relative">
             <input id="search-input" type="text" placeholder="Search for a Pokemon..." list="search-suggestions"
-              class="bg-transparent text-red-700 border border-red-700 px-4 py-2 rounded-full font-semibold mb-12 cursor-text" />
-            <button id="search-button" class="absolute top-3 right-4"><img src="src/img/mGlass.png" alt="Search Icon"
-                width="15" height="15" />
+              class="bg-transparent text-red-700 text-[.7rem] border border-red-700 px-7 py-2 rounded-full font-semibold cursor-text" />
+            <button id="search-button" class="absolute top-[12px] right-4"><img src="src/img/mGlass.png" alt="Search Icon"
+                width="12" height="12" />
             </button>
             <datalist id="search-suggestions">
               <option value="bulbasaur"></option>
@@ -36,10 +36,11 @@
             </datalist>
           </div>
           <a href="favorites.html" id=" toFavBtn" type="button"
-            class="bg-red-700 hover:bg-transparent hover:border-red-700 text-white hover:text-red-700 border border-transparent px-4 py-2 rounded font-semibold mb-12 cursor-pointer">
-            Back to Pokedex
-          </button></a>
+            class="bg-transparent inline-flex items-center hover:bg-red-700 text-red-700 text-[.6rem] hover:text-white border border-red-700 px-5 rounded font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent">
+            Favorite List
+          </a>
         </div>
+      </div>
     </nav>
   </header>
   <div id="search-container" class="">
@@ -52,34 +53,34 @@
   <section id="button-line" class="flex flex-row-reverse pr-5 pb-5">
   </section>
   <!-- Hero Section -->
-  <section id="hero" class="flex divide-y divide-red-700">
-    <div id="hero-elements" class="container px-4 py-3 flex justify-between">
-      <div id="left-elements" class="flex gap-3 items-center">
+  <section id="hero" class="w-full flex justify-center items-center px-6">
+    <div id="hero-elements" class="container flex justify-between items-center border-b border-gray-300 pb-5">
+      <div id="left-elements" class="flex gap-2 items-end">
         <h2 id="hero-title" class="bold text-3xl">Pokedex</h2>
-        <p id="hero-subtitle" class="text-sm text-center">
+        <p id="hero-subtitle" class="text-sm">
           List of Pokemons</p>
       </div>
-      <div id="right-elements" class="justify-right">
+      <div id="right-elements" class="flex justify-right items-center gap-2">
         <button id="LowestBtn" type="button"
-          class="bg-red-700 hover:bg-transparent hover:border-red-700 text-white hover:text-red-700 border border-transparent px-4 py-2 rounded-full font-semibold mb-12 cursor-pointer">
+          class="bg-red-700 hover:bg-transparent hover:border-red-700 text-white text-[.7rem] transition-all duration-300 hover:text-red-700 border border-transparent px-4 py-[.3rem] rounded-full font-semibold cursor-pointer">
           Lowest Number
         </button>
         <button id="azBtn" type="button"
-          class="bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-4 py-2 rounded-full font-semibold mb-12 cursor-pointer hover:text-red-700 hover:border-transparent">
+          class="bg-transparent hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-4 py-[.3rem] rounded-full font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent">
           A-Z
         </button>
         <button id="filtersBtn" type="button"
-          class="bg-transparent hover:bg-red-700 text-red-700 hover:text-white border border-red-700 px-4 py-2 rounded-full font-semibold mb-12 cursor-pointer hover:text-red-700 hover:border-transparent">
+          class="bg-transparent hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-4 py-[.3rem] rounded-full font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent">
           More filters
         </button>
       </div>
     </div>
   </section>
-  <p id="info" class="">Click on the Pokeball to catch or release your Pokémon</p>
+  <p id="info" class="w-full inline-flex justify-left pl-[4.2rem] mt-5">Click on the Pokeball to catch or release your Pokémon</p>
   </section>
   </header>
   <main>
-    <section id="pokemon-list" class="">
+    <section id="pokemon-list" class="flex flex-col items-center">
       <ul id="list-container" class="w-full flex flex-wrap justify-center gap-4 mt-7">
       </ul>
     </section>
@@ -120,9 +121,7 @@
   </footer>
 
   <script type="module" src="main.js"></script>
-  <script type="module" src="modules/network.js"></script>
-  <script type="module" src="modules/storage.js"></script>
-  <script type="module" src="modules/ui.js"></script>
+  <script type="module" src="modules/favoriteUi.js"></script>
 </body>
 
 </html>

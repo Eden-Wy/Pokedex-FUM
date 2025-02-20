@@ -38,7 +38,8 @@ export const pokeData = async () => {
           "w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer grayscale hover:grayscale-0 transition ease-in-out duration-300 hover:scale-105";
         cardigan.innerHTML = `
           <div class="w-full h-[8rem] flex justify-center items-center">
-            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" class="w-full h-[100%] bg-gray-200">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png" 
+             alt="${pokemon.name}" class="w-full h-[100%] bg-gray-200">
           </div>
           <p class="text-[1rem] font-medium">${pokemon.name.toUpperCase()}</p>
           <p class="text-[.7rem]">Height: ${pokemon.height}</p>
@@ -203,7 +204,7 @@ export const pokeData = async () => {
 };
 
 loadMoreBtn.textContent = "Load More";
-loadMoreBtn.className = "mt-4 px-3 py-1 bg-red-500 text-white text-[.7rem] rounded-md cursor-pointer";
+loadMoreBtn.className = "bg-transparent hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-4 py-[.3rem] mt-4 rounded-full font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent";
 loadMoreBtn.addEventListener("click", () => {
   offset += limit;
   pokeData();

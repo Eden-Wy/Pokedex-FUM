@@ -20,17 +20,16 @@ export const getFavorites = () => {
   return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
 };
 
-
 export const isFavorite = (id) => {
-  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
   return favorites.some((pokemon) => pokemon.id === id);
 };
 
 export const clearFavorites = () => {
-  localStorage.removeItem("favorites");
+  localStorage.removeItem(FAVORITES_KEY);
 };
 
 export const getFavorite = (id) => {
-  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
   return favorites.find((pokemon) => pokemon.id === id);
 };
