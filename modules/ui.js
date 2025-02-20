@@ -36,7 +36,7 @@ export const pokeData = async () => {
 
         const cardigan = document.createElement("div");
         cardigan.className =
-          "w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer";
+          "w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer grayscale hover:grayscale-0 transition ease-in-out duration-300";
         cardigan.innerHTML = `
         <div class="w-full h-[8rem] flex justify-center items-center">
           <img src="${pokemon.sprites.front_default}" alt="${
