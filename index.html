@@ -21,7 +21,7 @@
     <nav id="nav-bar" class="w-full flex justify-center px-6">
       <div class="container w-full py-6 flex justify-between" id="nav-elements">
         <a href="#" class="text-xl font-bold text-red-500">Pokedex</a>
-        <div id="search-favorites" class="flex gap-2">
+        <div id="search-favorites" class="flex gap-2 max-lg:hidden">
           <!-- Search bar -->
           <div class="search-bar relative">
             <input id="search-input" type="text" placeholder="Search for a Pokemon..." list="search-suggestions"
@@ -42,6 +42,12 @@
             </button>
           </div>
         </div>
+        <div class="burgerMenu hidden max-lg:block">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+            stroke="currentColor" class="w-[1.7rem]" className="size-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </div>
       </div>
     </nav>
   </header>
@@ -56,7 +62,7 @@
   </section>
   <!-- Hero Section -->
   <section id="hero" class="w-full flex justify-center items-center px-6">
-    <div id="hero-elements" class="container flex justify-between items-center border-b border-gray-300 pb-5">
+    <div id="hero-elements" class="container flex justify-between items-center border-b border-gray-300 pb-5 max-sm:flex-col max-sm:items-center max max-sm:gap-4">
       <div id="left-elements" class="flex gap-2 items-end">
         <h2 id="hero-title" class="bold text-3xl">Pokedex</h2>
         <p id="hero-subtitle" class="text-sm">
