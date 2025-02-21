@@ -11,13 +11,18 @@ const limit = 2;
 const favoritePokemon = async (data) => {
   if (!data || data.length === 0) {
     console.warn("No favorite Pokémon found.");
-    listContainer.innerHTML = "<p class='text-red-500'>No favorites yet.</p>";
+    
+    listContainer.innerHTML = `
+      <div class="flex justify-center items-center h-[12rem]">
+        <p class="text-red-500 text-[1rem]">No favorite Pokémon found.</p>
+      </div>
+    `;
     return;
   }
 
   listContainer.innerHTML = "";
-
   const slicedData = data.slice(0, offset + limit);
+  
   for (const element of slicedData) {
     const description = await getPokemonDescription(element.id);
 
@@ -55,11 +60,7 @@ const favoritePokemon = async (data) => {
     });
   }
 
-  if (data.length > offset + limit) {
-    loadMoreBtn.style.display = "block";
-  } else {
-    loadMoreBtn.style.display = "none";
-  }
+  loadMoreBtn.style.display = data.length > offset + limit ? "block" : "none";
 };
 
 const loadMoreBtn = document.createElement("button");
@@ -81,4 +82,4 @@ sortBtn.addEventListener("click", () => {
   favoritePokemon(sortedData); 
 });
 
-favoritePokemon(getFavorites()); 
+favoritePokemon(getFavorites());
