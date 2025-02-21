@@ -118,67 +118,99 @@ export const pokeData = async () => {
             "fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center";
           const modalContent = document.createElement("div");
           modalContent.className =
-            "w-[35rem] h-[20rem] bg-white border-[1px] border-red-600 rounded-md shadow-md flex justify-center items-center p-2 relative";
-
+            "w-[40rem] h-[22rem] bg-white border-[1px] border-red-600 rounded-md shadow-md flex justify-center items-center p-2 relative max-lg:w-[90%] max-lg:h-[50%]";
+        
           const modalContentLeft = document.createElement("div");
           modalContentLeft.className = "w-[40%] h-full flex items-center";
           modalContent.appendChild(modalContentLeft);
-
+        
           const modalContentRight = document.createElement("div");
           modalContentRight.className =
             "w-[60%] h-full flex flex-col justify-center items-center gap-[2rem]";
           modalContent.appendChild(modalContentRight);
-
+        
           const modalContentRightTop = document.createElement("div");
           modalContentRightTop.className =
             "w-full flex justify-start items-center pl-7";
           modalContentRight.appendChild(modalContentRightTop);
-
+        
           const modalContentRightBottom = document.createElement("div");
           modalContentRightBottom.className =
             "w-full flex flex-col justify-center items-start gap-1 pl-7";
           modalContentRight.appendChild(modalContentRightBottom);
-
+        
           const modalImage = document.createElement("img");
-          modalImage.src = pokemon.sprites.front_default;
+          modalImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
           modalImage.alt = pokemon.name;
           modalImage.className = "w-[100%] h-[100%]  bg-gray-200";
           modalContentLeft.appendChild(modalImage);
-
+        
           const modalName = document.createElement("p");
           modalName.className = "text-[2rem] font-medium text-red-600";
           modalName.textContent = pokemon.name.toUpperCase();
           modalContentRightTop.appendChild(modalName);
-
+        
           const modalBaseExperience = document.createElement("p");
           modalBaseExperience.className = "text-[.7rem] capitalize";
           modalBaseExperience.innerHTML = `<span class="text-red-500 mr-1">Base Experience</span>: ${pokemon.base_experience}`;
           modalContentRightBottom.appendChild(modalBaseExperience);
-
+        
           const modalHeight = document.createElement("p");
           modalHeight.className = "text-[.7rem] capitalize";
           modalHeight.innerHTML = `<span class="text-red-500 mr-1">Height</span>: ${pokemon.height}`;
           modalContentRightBottom.appendChild(modalHeight);
-
+        
           const modalWeight = document.createElement("p");
           modalWeight.className = "text-[.7rem] capitalize";
           modalWeight.innerHTML = `<span class="text-red-500 mr-1">Weight</span>: ${pokemon.weight}`;
           modalContentRightBottom.appendChild(modalWeight);
-
+        
           const modalType = document.createElement("p");
           modalType.className = "text-[.7rem] capitalize";
           modalType.innerHTML = `<span class="text-red-500 mr-1">Type</span>: ${pokemon.types
             .map((type) => type.type.name)
             .join(", ")}`;
           modalContentRightBottom.appendChild(modalType);
-
+        
           const modalGender = document.createElement("p");
           modalGender.className = "text-[.7rem] capitalize";
           modalGender.innerHTML = `<span class="text-red-500 mr-1">Gender</span>: ${pokemon.forms
             .map((form) => form.name)
             .join(", ")}`;
           modalContentRightBottom.appendChild(modalGender);
-
+        
+          // Yeni eklenen veriler
+        
+          const modalAbilities = document.createElement("p");
+          modalAbilities.className = "text-[.7rem] capitalize";
+          modalAbilities.innerHTML = `<span class="text-red-500 mr-1">Abilities</span>: ${pokemon.abilities
+            .map((ability) => ability.ability.name)
+            .join(", ")}`;
+          modalContentRightBottom.appendChild(modalAbilities);
+        
+          const modalBaseStats = document.createElement("p");
+          modalBaseStats.className = "text-[.7rem] capitalize";
+          modalBaseStats.innerHTML = `<span class="text-red-500 mr-1">Base Stats</span>: ${pokemon.stats
+            .map((stat) => `${stat.stat.name}: ${stat.base_stat}`)
+            .join(", ")}`;
+          modalContentRightBottom.appendChild(modalBaseStats);
+        
+          const modalHeldItems = document.createElement("p");
+          modalHeldItems.className = "text-[.7rem] capitalize";
+          modalHeldItems.innerHTML = `<span class="text-red-500 mr-1">Held Items</span>: ${
+            pokemon.held_items.length > 0
+              ? pokemon.held_items.map((item) => item.item.name).join(", ")
+              : "None"
+          }`;
+          modalContentRightBottom.appendChild(modalHeldItems);
+        
+          const modalGameIndices = document.createElement("p");
+          modalGameIndices.className = "text-[.7rem] capitalize";
+          modalGameIndices.innerHTML = `<span class="text-red-500 mr-1">Game Indices</span>: ${pokemon.game_indices
+            .map((game) => game.version.name)
+            .join(", ")}`;
+          modalContentRightBottom.appendChild(modalGameIndices);
+        
           const modalClose = document.createElement("button");
           modalClose.className =
             "w-[1.5rem] h-[1.5rem] text-[.8rem] absolute top-3 right-6 cursor-pointer";
@@ -187,10 +219,11 @@ export const pokeData = async () => {
             modal.remove();
           });
           modalContent.appendChild(modalClose);
-
+        
           modal.appendChild(modalContent);
           body.appendChild(modal);
         });
+        
 
         const searchPokemon = () => {
           searchInput.addEventListener("input", () => {
