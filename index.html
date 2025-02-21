@@ -26,8 +26,8 @@
           <div class="search-bar relative">
             <input id="search-input" type="text" placeholder="Search for a Pokemon..." list="search-suggestions"
               class="bg-transparent text-red-700 text-[.7rem] border border-red-700 px-7 py-2 rounded-full font-semibold cursor-text" />
-            <button id="search-button" class="absolute top-[12px] right-4"><img src="src/img/mGlass.png" alt="Search Icon"
-                width="12" height="12" />
+            <button id="search-button" class="absolute top-[12px] right-4"><img src="src/img/mGlass.png"
+                alt="Search Icon" width="12" height="12" />
             </button>
             <datalist id="search-suggestions">
               <option value="bulbasaur"></option>
@@ -35,10 +35,12 @@
               <option value="squirtle"></option>
             </datalist>
           </div>
-          <a href="favorites.html" id=" toFavBtn" type="button"
-            class="bg-transparent inline-flex items-center hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-5 rounded font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent">
-            Favorite List
-          </a>
+          <div class="favorite-goBack">
+            <button id="toggleButton" type="button"
+              class="favoriteBtn bg-transparent inline-flex items-center hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-5 py-2 rounded font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent">
+              Favorite List
+            </button>
+          </div>
         </div>
       </div>
     </nav>
@@ -76,7 +78,8 @@
       </div>
     </div>
   </section>
-  <p id="info" class="w-full inline-flex justify-left pl-[4.2rem] mt-5">Click on the Pokeball to catch or release your Pokémon</p>
+  <p id="info" class="w-full inline-flex justify-left pl-[4.2rem] mt-5">Click on the Pokeball to catch or release your
+    Pokémon</p>
   </section>
   </header>
   <main>
@@ -127,5 +130,3 @@
 </body>
 
 </html>
-
-
