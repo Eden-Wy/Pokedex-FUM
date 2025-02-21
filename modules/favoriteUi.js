@@ -4,9 +4,34 @@ import { addFavorite, removeFavorite, getFavorites } from "./storage.js";
 const pokemonList = document.querySelector("#pokemon-list");
 const listContainer = document.querySelector("#list-container");
 const sortBtn = document.querySelector("#azBtn");
+const toggleButton = document.querySelector("#toggleButton");
 
 let offset = 0;
 const limit = 2;
+
+let isFavoritePage = false;
+
+toggleButton.addEventListener("click", () => {
+  if (isFavoritePage) {
+    window.location.href = "index.html";
+    toggleButton.textContent = "Favorite List"; 
+  } else {
+    window.location.href = "favorites.html";
+    toggleButton.textContent = "Go Back"; 
+  }
+  isFavoritePage = !isFavoritePage; 
+});
+
+window.addEventListener("load", () => {
+  const currentPage = window.location.pathname.split("/").pop();
+  if (currentPage === "favorites.html") {
+    toggleButton.textContent = "Go Back";
+    isFavoritePage = true;
+  } else {
+    toggleButton.textContent = "Favorite List";
+    isFavoritePage = false;
+  }
+});
 
 const favoritePokemon = async (data) => {
   if (!data || data.length === 0) {
@@ -28,7 +53,7 @@ const favoritePokemon = async (data) => {
 
     const list = document.createElement("div");
     list.className =
-      "w-[90%] min-h-[12rem] flex justify-start items-center gap-4 bg-white border-[1px] border-red-300 rounded-md pl-[1rem] shadow-md relative cursor-pointer grayscale hover:grayscale-0 transition ease-in-out duration-300 hover:scale-105";
+      "w-[90%] min-h-[12rem] flex justify-start items-center gap-4 bg-white border-[1px] border-red-300 rounded-md pl-[1rem] shadow-md relative cursor-pointer transition ease-in-out duration-300 hover:scale-105";
     list.innerHTML = `
       <div class="w-[10rem] h-[8rem] flex justify-center items-center">
         <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${element.id}.png" 

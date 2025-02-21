@@ -6,20 +6,49 @@ const listContainer = document.querySelector("#list-container");
 const body = document.querySelector("body");
 const searchInput = document.querySelector("#search-input");
 const loadMoreBtn = document.createElement("button");
+const favoriteBtn = document.querySelector(".favoriteBtn");
+const goBackBtn = document.querySelector(".goBackBtn");
+const toggleButton = document.querySelector("#toggleButton");
 
 let offset = 0;
 const limit = 12;
 
+let isFavoritePage = false;
+
+toggleButton.addEventListener("click", () => {
+  if (isFavoritePage) {
+    window.location.href = "index.html";
+    toggleButton.textContent = "Favorite List";
+  } else {
+    window.location.href = "favorites.html";
+  }
+  isFavoritePage = !isFavoritePage;
+});
+
+window.addEventListener("load", () => {
+  const currentPage = window.location.pathname.split("/").pop();
+  if (currentPage === "favorites.html") {
+    toggleButton.textContent = "Go Back";
+    isFavoritePage = true;
+  } else {
+    toggleButton.textContent = "Favorite List";
+    isFavoritePage = false;
+  }
+});
+
 export const pokeData = async () => {
   try {
-    const data = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
+    const data = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+    );
     const jsonData = await data.json();
     if (!jsonData || !jsonData.results || jsonData.results.length === 0) {
       throw new Error("Data not found");
     }
 
     const favorites = getFavorites();
-    const checkFavorite = (pokemonId) => favorites.some((fav) => fav.id === pokemonId);
+    const checkFavorite = (pokemonId) =>
+      favorites.some((fav) => fav.id === pokemonId);
 
     jsonData.results.forEach(async (element) => {
       try {
@@ -34,17 +63,22 @@ export const pokeData = async () => {
         const isFavorite = checkFavorite(pokemonId);
 
         const cardigan = document.createElement("div");
-        cardigan.className =
-          "w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer grayscale hover:grayscale-0 transition ease-in-out duration-300 hover:scale-105";
+        cardigan.className = `w-[12rem] h-[15rem] flex flex-col justify-between items-center bg-white border-[1px] border-slate-300 rounded-md shadow-md pb-[.7rem] relative cursor-pointer ${
+          isFavorite ? "grayscale-0" : "grayscale"
+        } hover:grayscale-0 transition ease-in-out duration-300 hover:scale-105`;
         cardigan.innerHTML = `
           <div class="w-full h-[8rem] flex justify-center items-center">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png" 
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+              pokemon.id
+            }.png" 
              alt="${pokemon.name}" class="w-full h-[100%] bg-gray-200">
           </div>
           <p class="text-[1rem] font-medium">${pokemon.name.toUpperCase()}</p>
           <p class="text-[.7rem]">Height: ${pokemon.height}</p>
           <p class="text-[.7rem]">Weight: ${pokemon.weight}</p>
-          <p class="text-[.7rem]">Type: ${pokemon.types.map((typeInfo) => typeInfo.type.name).join(", ")}</p>
+          <p class="text-[.7rem]">Type: ${pokemon.types
+            .map((typeInfo) => typeInfo.type.name)
+            .join(", ")}</p>
         `;
         listContainer.appendChild(cardigan);
 
@@ -66,11 +100,13 @@ export const pokeData = async () => {
           const weight = pokemon.weight;
 
           if (favoriteBtn.src.includes("pokeball-empty.png")) {
-            favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-full.png";
+            favoriteBtn.src =
+              "../src/assets/images/pokeballs/pokeball-full.png";
             addFavorite(id, name, type, height, weight);
             cardigan.classList.remove("grayscale");
           } else {
-            favoriteBtn.src = "../src/assets/images/pokeballs/pokeball-empty.png";
+            favoriteBtn.src =
+              "../src/assets/images/pokeballs/pokeball-empty.png";
             removeFavorite(id);
             cardigan.classList.add("grayscale");
           }
@@ -204,7 +240,8 @@ export const pokeData = async () => {
 };
 
 loadMoreBtn.textContent = "Load More";
-loadMoreBtn.className = "bg-transparent hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-4 py-[.3rem] mt-4 rounded-full font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent";
+loadMoreBtn.className =
+  "bg-transparent hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-4 py-[.3rem] mt-4 rounded-full font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent";
 loadMoreBtn.addEventListener("click", () => {
   offset += limit;
   pokeData();
