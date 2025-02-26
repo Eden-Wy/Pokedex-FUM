@@ -7,7 +7,7 @@ const sortBtn = document.querySelector("#azBtn");
 const toggleButton = document.querySelector("#toggleButton");
 
 let offset = 0;
-const limit = 2;
+const limit = 4;
 
 let isFavoritePage = false;
 
