@@ -15,21 +15,29 @@
   <title>Pokedex</title>
 </head>
 
-<body id="body" class="">
-  <header id="header" class="">
-    <!-- Navbar -->
+<style>
+  @layer utilities {
+    .hide-picker-indicator::-webkit-calendar-picker-indicator {
+      display: none !important;
+    }
+  }
+</style>
+
+<body id="body" class="flex flex-col items-center">
+  <header id="header" class="w-full">
     <nav id="nav-bar" class="w-full flex justify-center px-6">
       <div class="container w-full py-6 flex justify-between" id="nav-elements">
         <a href="index.html" class="text-xl font-bold text-red-500">Pokedex</a>
-        <div id="search-favorites" class="flex gap-2">
+        <div id="search-favorites" class="flex gap-2 max-lg:hidden">
           <!-- Search bar -->
           <div class="search-bar relative">
-            <input id="search-input" type="text" placeholder="Search for a Pokemon..." list="search-suggestions"
-              class="bg-transparent text-red-700 text-[.7rem] border border-red-700 px-7 py-2 rounded-full font-semibold cursor-text" />
+            <input type="text" placeholder="Search for a Pokémon..."
+              class="w-full hide-picker-indicator bg-transparent text-red-700 text-sm border border-red-700 px-4 py-2 rounded-full font-semibold cursor-text focus:outline-none focus:ring-2 focus:ring-red-500" />
             <button id="search-button" class="absolute top-[12px] right-4"><img src="src/img/mGlass.png"
                 alt="Search Icon" width="12" height="12" />
             </button>
-            <datalist id="search-suggestions">
+            <datalist id="search-suggestions"
+              class="bg-transparent text-red-700 text-[.7rem] border border-red-700 px-7 py-2 rounded-full font-semibold cursor-text">
               <option value="bulbasaur"></option>
               <option value="charmander"></option>
               <option value="squirtle"></option>
@@ -42,9 +50,9 @@
             </button>
           </div>
         </div>
-        <div class="burgerMenu">
+        <div class="burgerMenu hidden max-lg:block">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-            stroke="currentColor" className="size-6">
+            stroke="currentColor" class="w-[1.7rem]" className="size-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
         </div>
@@ -53,80 +61,76 @@
   </header>
   <div id="search-container" class="">
     <div class="search-display"></div>
-
     <div class="posts-container"></div>
-
   </div>
 
   <section id="button-line" class="flex flex-row-reverse pr-5 pb-5">
   </section>
   <!-- Hero Section -->
   <section id="hero" class="w-full flex justify-center items-center px-6">
-    <div id="hero-elements" class="container flex justify-between items-center border-b border-gray-300 pb-5">
+    <div id="hero-elements"
+      class="container flex justify-between items-center border-b border-gray-300 pb-5 max-sm:flex-col max-sm:items-center max max-sm:gap-4">
       <div id="left-elements" class="flex gap-2 items-end">
-        <h2 id="hero-title" class="bold text-3xl">Pokedex</h2>
+        <h2 id="hero-title" class="bold text-3xl max-lg:text-[1.8rem]">Pokedex</h2>
         <p id="hero-subtitle" class="text-sm">
           List of Pokemons</p>
       </div>
       <div id="right-elements" class="flex justify-right items-center gap-2">
         <button id="LowestBtn" type="button"
-          class="bg-red-700 hover:bg-transparent hover:border-red-700 text-white text-[.7rem] transition-all duration-300 hover:text-red-700 border border-transparent px-4 py-[.3rem] rounded-full font-semibold cursor-pointer">
+          class="bg-red-700 hover:bg-transparent hover:border-red-700 text-white text-[.7rem] transition-all duration-300 hover:text-red-700 border border-transparent px-4 py-[.3rem] rounded-full font-semibold cursor-pointer max-lg:text-[.55rem]">
           Lowest Number
         </button>
         <button id="azBtn" type="button"
-          class="bg-transparent hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-4 py-[.3rem] rounded-full font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent">
+          class="bg-transparent hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-4 py-[.3rem] rounded-full font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent max-lg:text-[.55rem]">
           A-Z
         </button>
         <button id="filtersBtn" type="button"
-          class="bg-transparent hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-4 py-[.3rem] rounded-full font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent">
-
+          class="bg-transparent hover:bg-red-700 text-red-700 text-[.7rem] hover:text-white border border-red-700 px-4 py-[.3rem] rounded-full font-semibold cursor-pointer transition-all duration-300 hover:text-red-700 hover:border-transparent max-lg:text-[.55rem]">
           More filters
         </button>
       </div>
     </div>
   </section>
-  <p id="info" class="w-full inline-flex justify-left pl-[4.2rem] mt-5">Click on the Pokeball to catch or release your
-    Pokémon</p>
+  <div
+    class="infoBox w-[73%] flex justify-center items-center max-lg:w-full max-lg:px-4 max-md:w-full max-md:px-3 max-sm:w-full max-xl:w-full max-2xl:w-full">
+    <p id="info" class="w-full inline-flex justify-start mt-5 px-10 text-center max-lg:px-1">Click on the Pokeball to
+      catch or
+      release your Pokémon</p>
+  </div>
   </section>
   </header>
-  <main class="w-full flex flex-col items-center">
-    <section id="pokemon-list" class="flex flex-col items-center">
-      <ul id="list-container" class="w-full flex flex-wrap justify-center gap-4 mt-7">
+  <main class="w-full flex flex-col items-center pb-6">
+    <section id="pokemon-list" class="w-full flex flex-col items-center">
+      <ul id="list-container"
+        class="w-[80%] flex flex-wrap justify-center gap-4 mt-5 max-sm:w-[100%] max-md:w-[100%] max-lg:w-[100%] max-xl:w-[100%] max-xl:p-1 max-2xl:w-[100%]">
       </ul>
     </section>
-    <!-- <section id="pokemon-modal" class="">
-      <div id="modal-container" class="">
-      </div>
-      </div>
-    </section> -->
   </main>
-  <footer>
-    <section class="flex-row gap-20 pt-60 pb-60 pl-5 pr-5">
-      <div
-        class="flex flex-row flex-wrap items-center gap-6 font-[Open_Sans] font-normal text-xl text-left md:text-3x1 mx-auto ml-10 mr-10">
-        <div class="flex flex-col justify-left min-w-2xs" id="left-paragraph">
-          <h3 class="text-left pb-5">The Pokemon Company</h3>
-          <ul class="">
-            <li><a href="#">News</a></li>
-            <li><a href="#">About our company</a></li>
-            <li><a href="#">Careers</a></li>
-          </ul>
-          <div class="flex gap-2 items-left" id="right-paragraph">
-            <div class="flex flex-row gap-10 text-nowrap text-left" id="sm-container">
-              <img src="src/img/instagram.png" alt="instagram logo" width="35" height="35">
-              <img src="src/img/facebook.png" alt="facebook logo" width="35" height="35">
-              <img src="src/img/twitter.png" alt="twitter logo" width="35" height="35">
-              <img src="src/img/whatsapp.png" alt="whatsapp logo" width="35" height="35">
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-row gap-10 text-nowrap text-left">
-          <div class="" id="col-1">
-            <h3 class="pb-5">The Pokemon Company</h3>
 
-          </div>
+  <footer class="w-full">
+    <section id="column container"
+      class="flex flex-wrap justify-between content-start gap-20 px-10 pb-5 pt-10 border-t-4 divide-x border-red-700 ">
+      <div id="left column" class="flex-col justify-leftfont-[Open_Sans] font-normal text-left md:text-3x1">
+        <h3 id="col title" class="font-bold text-left text-xl pb-5">The Pokemon Company</h3>
+        <ul id="col list" class="text-base">
+          <li><a href="#">News</a></li>
+          <li><a href="#">About our company</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div id="right-paragraph" class="flex gap-2 items-center">
+        <div id="sm-container" class="flex gap-10">
+          <img src="src/img/instagram.png" alt="instagram logo" width="35" height="35">
+          <img src="src/img/facebook.png" alt="facebook logo" width="35" height="35">
+          <img src="src/img/twitter.png" alt="twitter logo" width="35" height="35">
+          <img src="src/img/whatsapp.png" alt="whatsapp logo" width="35" height="35">
         </div>
       </div>
+      </div>
+      </div>
+    </section>
+    <section id="bottom paragraph" class="flex justify-center text-sm">
+      <h3 class="p-5 ">©2025 All rights reserved. WD-60 Group 3.</h3>
     </section>
   </footer>
 

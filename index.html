@@ -15,17 +15,25 @@
   <title>Pokedex</title>
 </head>
 
-<body id="body" class="">
-  <header id="header" class="">
+<style>
+  @layer utilities {
+    .hide-picker-indicator::-webkit-calendar-picker-indicator {
+      display: none !important;
+    }
+  }
+</style>
+
+<body id="body" class="flex flex-col items-center">
+  <header id="header" class="w-full">
     <!-- Navbar -->
     <nav id="nav-bar" class="w-full flex justify-center px-6">
       <div class="container w-full py-6 flex justify-between" id="nav-elements">
-        <a href="#" class="text-xl font-bold text-red-500">Pokedex</a>
+        <a href="index.html" class="text-xl font-bold text-red-500">Pokedex</a>
         <div id="search-favorites" class="flex gap-2 max-lg:hidden">
           <!-- Search bar -->
           <div class="search-bar relative">
-            <input id="search-input" type="text" placeholder="Search for a Pokemon..." list="search-suggestions"
-              class="bg-transparent text-red-700 text-[.7rem] border border-red-700 px-7 py-2 rounded-full font-semibold cursor-text" />
+            <input type="text" placeholder="Search for a Pokémon..."
+              class="w-full hide-picker-indicator bg-transparent text-red-700 text-sm border border-red-700 px-4 py-2 rounded-full font-semibold cursor-text focus:outline-none focus:ring-2 focus:ring-red-500" />
             <button id="search-button" class="absolute top-[12px] right-4"><img src="src/img/mGlass.png"
                 alt="Search Icon" width="12" height="12" />
             </button>
@@ -62,7 +70,8 @@
   </section>
   <!-- Hero Section -->
   <section id="hero" class="w-full flex justify-center items-center px-6">
-    <div id="hero-elements" class="container flex justify-between items-center border-b border-gray-300 pb-5 max-sm:flex-col max-sm:items-center max max-sm:gap-4">
+    <div id="hero-elements"
+      class="container flex justify-between items-center border-b border-gray-300 pb-5 max-sm:flex-col max-sm:items-center max max-sm:gap-4">
       <div id="left-elements" class="flex gap-2 items-end">
         <h2 id="hero-title" class="bold text-3xl max-lg:text-[1.8rem]">Pokedex</h2>
         <p id="hero-subtitle" class="text-sm">
@@ -84,13 +93,18 @@
       </div>
     </div>
   </section>
-  <p id="info" class="w-full inline-flex justify-left pl-[4.2rem] mt-5">Click on the Pokeball to catch or release your
-    Pokémon</p>
+  <div
+    class="infoBox w-[73%] flex justify-center items-center max-lg:w-full max-lg:px-10 max-md:w-full max-md:px-3 max-sm:w-full max-xl:w-full max-2xl:w-full">
+    <p id="info" class="w-full inline-flex justify-start mt-5 px-4 text-center max-lg:px-10 max-2xl:px-8">Click on the Pokeball to catch or
+      release your Pokémon</p>
+  </div>
+
   </section>
   </header>
   <main class="pb-6">
     <section id="pokemon-list" class="flex flex-col items-center">
-      <ul id="list-container" class="w-full flex flex-wrap justify-center gap-4 mt-5">
+      <ul id="list-container"
+        class="w-[80%] flex flex-wrap justify-center gap-4 mt-5 max-sm:w-[100%] max-md:w-[100%] max-lg:w-[100%] max-xl:w-[100%] max-xl:p-1 max-2xl:w-[100%]">
       </ul>
     </section>
     <!-- <section id="pokemon-modal" class="">
@@ -100,25 +114,26 @@
     </section> -->
   </main>
 
-  <footer>
-    <section id= "column container" class="flex flex-wrap justify-between content-start gap-20 px-10 pb-5 pt-10 border-t-4 divide-x border-red-700 ">
+  <footer class="w-full">
+    <section id="column container"
+      class="flex flex-wrap justify-between content-start gap-20 px-10 pb-5 pt-10 border-t-4 divide-x border-red-700 ">
       <div id="left column" class="flex-col justify-leftfont-[Open_Sans] font-normal text-left md:text-3x1">
         <h3 id="col title" class="font-bold text-left text-xl pb-5">The Pokemon Company</h3>
-        <ul id= "col list" class="text-base">
+        <ul id="col list" class="text-base">
           <li><a href="#">News</a></li>
           <li><a href="#">About our company</a></li>
           <li><a href="#">Careers</a></li>
         </ul>
       </div>
-      <div id="right-paragraph" class="flex gap-2 items-center" >
-            <div id="sm-container" class="flex gap-10" >
-              <img src="src/img/instagram.png" alt="instagram logo" width="35" height="35">
-              <img src="src/img/facebook.png" alt="facebook logo" width="35" height="35">
-              <img src="src/img/twitter.png" alt="twitter logo" width="35" height="35">
-              <img src="src/img/whatsapp.png" alt="whatsapp logo" width="35" height="35">
-            </div>
-          </div>
+      <div id="right-paragraph" class="flex gap-2 items-center">
+        <div id="sm-container" class="flex gap-10">
+          <img src="src/img/instagram.png" alt="instagram logo" width="35" height="35">
+          <img src="src/img/facebook.png" alt="facebook logo" width="35" height="35">
+          <img src="src/img/twitter.png" alt="twitter logo" width="35" height="35">
+          <img src="src/img/whatsapp.png" alt="whatsapp logo" width="35" height="35">
         </div>
+      </div>
+      </div>
       </div>
     </section>
     <section id="bottom paragraph" class="flex justify-center text-sm">
